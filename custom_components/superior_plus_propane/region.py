@@ -27,6 +27,11 @@ class RegionConfig:
     rate_display_factor: float
     price_unit: str
 
+    @property
+    def price_display_factor(self) -> float:
+        """Factor to convert API price per volume unit to price per consumption unit."""
+        return 1.0 / self.volume_to_energy_factor
+
     # Thresholds and validation bounds (in native volume units)
     default_update_interval: int
     default_min_threshold: float
