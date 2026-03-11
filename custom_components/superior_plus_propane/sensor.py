@@ -294,6 +294,7 @@ class SuperiorPlusPropanePriceSensor(SuperiorPlusPropaneEntity, SensorEntity):
         self._attr_device_class = SensorDeviceClass.MONETARY
         self._attr_state_class = None
         self._attr_icon = "mdi:currency-usd"
+        self._price_display_factor = region_config.price_display_factor
 
     @property
     def native_value(self) -> float | None:
@@ -307,7 +308,7 @@ class SuperiorPlusPropanePriceSensor(SuperiorPlusPropaneEntity, SensorEntity):
             return None
 
         try:
-            return round(float(price_str), 4)
+            return round(float(price_str) * self._price_display_factor, 4)
         except (ValueError, TypeError):
             return None
 
